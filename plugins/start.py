@@ -85,8 +85,7 @@ async def start_command(client: Client, message: Message):
             except:
     # Silently pass for all other exceptions
                 pass
-            finally:
-                return
+        return
     else:
         reply_markup = InlineKeyboardMarkup(
             [
