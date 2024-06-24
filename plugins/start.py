@@ -82,14 +82,11 @@ async def start_command(client: Client, message: Message):
     # Retry the copy operation only if the message still exists
                 if msg:
                     await msg.copy(chat_id=message.from_user.id, caption=caption, parse_mode=ParseMode.HTML, reply_markup=reply_markup, protect_content=PROTECT_CONTENT)
-            except MessageNotFound:
-    # Handle the case where the message was deleted
-                print("Message was deleted.")
-            except Exception as e:
-    # Optionally log other errors
-                print(f"An error occurred: {e}")
-                pass          
-        return
+            except:
+    # Silently pass for all other exceptions
+                pass
+            finally:
+                return
     else:
         reply_markup = InlineKeyboardMarkup(
             [
