@@ -84,7 +84,7 @@ async def start_command(client: Client, message: Message):
                 await msg.copy(chat_id=message.from_user.id, caption = caption, parse_mode = ParseMode.HTML, reply_markup = reply_markup, protect_content=PROTECT_CONTENT)
             except Exception:
                 pass
-        await message.reply_text(f"b><i>» Save These File In Your Saved Messages. It Will Be Deleted In 30 Minutes.\n» Must Join\n1. ⚡️⚡️@Anime_Fair⚡️⚡️\n2. ⚡️⚡️@Chat_Weeb⚡️⚡</i></b>")
+        await message.reply_text(f"<b><i>» Save These File In Your Saved Messages. It Will Be Deleted In 30 Minutes.\n» Must Join\n1. ⚡️⚡️@Anime_Fair⚡️⚡️\n2. ⚡️⚡️@Chat_Weeb⚡️⚡</i></b>")
         await message.reply_text(f"<b>ＡＮＩＭＥ ＦＡＩＲ \n────────────────────────\nAnime Channel: @Anime_Fair\nHentai Channel: @Cultured_Fair\nManga Channel: @Manga_Fair\nMovie Channel: @Fair_Movies\n────────────────────────\nVisit @Chat_Weeb for more info..</b>")
         
         return
