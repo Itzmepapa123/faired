@@ -85,7 +85,7 @@ async def start_command(client: Client, message: Message):
             except Exception:
                 pass
         await message.reply_text(f"<b><u>❗️❗️❗️IMPORTANT❗️️❗️❗️</u></b>\n\nThis Movie File/Video will be deleted in <b><u>30 minutes</u> 🫥 <i></b>(Due to Copyright Issues)</i>.\n\n<b><i>Please forward this File/Video to your Saved Messages and Start Download there</b>")
-        await message.reply_text(f"ＡＮＩＭＥ ＦＡＩＲ \n────────────────────────\nAnime Channel: @Anime_Fair\nHentai Channel: @Cultured_Fair\nManga Channel: @Manga_Fair\nMovie Channel: @Fair_Movies\n────────────────────────\nVisit @Chat_Weeb for more info..")
+        await message.reply_text(f"<b>ＡＮＩＭＥ ＦＡＩＲ </b>\n────────────────────────\nAnime Channel: @Anime_Fair\nHentai Channel: @Cultured_Fair\nManga Channel: @Manga_Fair\nMovie Channel: @Fair_Movies\n────────────────────────\nVisit @Chat_Weeb for more info..")
         
         return
     else:
