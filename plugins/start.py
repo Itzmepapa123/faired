@@ -76,13 +76,16 @@ async def start_command(client: Client, message: Message):
                 reply_markup = None
 
             try:
-                k = await msg.copy(chat_id=message.from_user.id, caption = caption, parse_mode = ParseMode.HTML, reply_markup = reply_markup, protect_content=PROTECT_CONTENT)
+                k = await msg.copy(chat_id=message.from_user.id, caption=caption, parse_mode=ParseMode.HTML, reply_markup=reply_markup, protect_content=PROTECT_CONTENT)
                 await asyncio.sleep(0.5)
-                asyncio.create_task(delete_after_delay(k, 1800))
+                try:
+                    asyncio.create_task(delete_after_delay(k, 1800))
+                except:
+                    pass
             except FloodWait as e:
                 await asyncio.sleep(e.x)
-                await msg.copy(chat_id=message.from_user.id, caption = caption, parse_mode = ParseMode.HTML, reply_markup = reply_markup, protect_content=PROTECT_CONTENT)
-            except Exception:
+                await msg.copy(chat_id=message.from_user.id, caption=caption, parse_mode=ParseMode.HTML, reply_markup=reply_markup, protect_content=PROTECT_CONTENT)
+            except:
                 pass
         await message.reply_text(f"<b><i>» Save These File In Your Saved Messages. It Will Be Deleted In 30 Minutes.\n» Must Join\n1. ⚡️⚡️@Anime_Fair⚡️⚡️\n2. ⚡️⚡️@Chat_Weeb⚡️⚡</i></b>")
         await message.reply_text(f"<b>ＡＮＩＭＥ ＦＡＩＲ \n────────────────────────\nAnime Channel: @Anime_Fair\nHentai Channel: @Cultured_Fair\nManga Channel: @Manga_Fair\nMovie Channel: @Fair_Movies\n────────────────────────\nVisit @Chat_Weeb for more info..</b>")
