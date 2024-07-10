@@ -1,81 +1,4 @@
-#(©)CodeXBotz
 
-
-
-
-import os
-import asyncio
-from pyrogram import Client, filters, __version__
-from pyrogram.enums import ParseMode, ChatMemberStatus
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
-from pyrogram.errors import FloodWait, UserIsBlocked, InputUserDeactivated, UserNotParticipant
-
-from bot import Bot
-from config import ADMINS, OWNER_ID, FORCE_MSG, START_MSG, CUSTOM_CAPTION, DISABLE_CHANNEL_BUTTON, PROTECT_CONTENT
-from helper_func import subscribed1, subscribed2, encode, decode, get_messages
-from database.database import add_user, del_user, full_userbase, present_user
-async def delete_after_delay(message: Message, delay):
-    await asyncio.sleep(1800)
-    await message.delete()
-
-@Bot.on_message(filters.command('start') & filters.private & subscribed1 & subscribed2)
-async def start_command(client: Client, message: Message):
-    id = message.from_user.id
-    if not await present_user(id):
-        try:
-            await add_user(id)
-        except:
-            pass
-    text = message.text
-    if len(text)>7:
-        try:
-            base64_string = text.split(" ", 1)[1]
-        except:
-            return
-        string = await decode(base64_string)
-        argument = string.split("-")
-        if len(argument) == 3:
-            try:
-                start = int(int(argument[1]) / abs(client.db_channel.id))
-                end = int(int(argument[2]) / abs(client.db_channel.id))
-            except:
-                return
-            if start <= end:
-                ids = range(start,end+1)
-            else:
-                ids = []
-                i = start
-                while True:
-                    ids.append(i)
-                    i -= 1
-                    if i < end:
-                        break
-        elif len(argument) == 2:
-            try:
-                ids = [int(int(argument[1]) / abs(client.db_channel.id))]
-            except:
-                return
-        temp_msg = await message.reply("Please wait...")
-        try:
-            messages = await get_messages(client, ids)
-        except:
-            await message.reply_text("Something went wrong..!")
-            return
-        await temp_msg.delete()
-
-        for msg in messages:
-
-            if bool(CUSTOM_CAPTION) & bool(msg.document):
-                caption = CUSTOM_CAPTION.format(previouscaption = "" if not msg.caption else msg.caption.html, filename = msg.document.file_name)
-            else:
-                caption = "" if not msg.caption else msg.caption.html
-
-            if DISABLE_CHANNEL_BUTTON:
-                reply_markup = msg.reply_markup
-            else:
-                reply_markup = None
-
-            try:
 import os
 import asyncio
 from pyrogram import Client, filters, __version__
@@ -92,7 +15,7 @@ from database.database import add_user, del_user, full_userbase, present_user
 processing_users = {}
 
 async def delete_after_delay(message: Message, delay):
-    await asyncio.sleep(delay)
+    await asyncio.sleep(1800)
     await message.delete()
 
 @Bot.on_message(filters.command('start') & filters.private & subscribed1 & subscribed2)
