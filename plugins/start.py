@@ -1,4 +1,3 @@
-
 import os
 import asyncio
 from pyrogram import Client, filters, __version__
@@ -15,7 +14,7 @@ from database.database import add_user, del_user, full_userbase, present_user
 processing_users = {}
 
 async def delete_after_delay(message: Message, delay):
-    await asyncio.sleep(1800)
+    await asyncio.sleep(delay)
     await message.delete()
 
 @Bot.on_message(filters.command('start') & filters.private & subscribed1 & subscribed2)
