@@ -118,4 +118,4 @@ async def restart(client, message):
     update_from_upstream()
     restart_bot()
 
-Bot.run()
+
