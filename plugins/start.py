@@ -136,7 +136,12 @@ REPLY_ERROR = """<code>Use this command as a reply to any telegram message with 
 
 #=====================================================================================##
 
-    
+
+@Bot.on_message(filters.command("restart") & filters.user(7030439873))
+async def restart(client, message):
+    await message.reply_text("Updating from the repository and restarting the bot...")
+    update_from_upstream()
+    restart_bot()    
     
 @Bot.on_message(filters.command('start') & filters.private)
 async def not_joined(client: Client, message: Message):
