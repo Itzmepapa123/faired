@@ -48,10 +48,10 @@ class Bot(Client):
         self.LOGGER = LOGGER
 
     try:
-       if len(UPSTREAM_REPO) == 0:
+        if len(UPSTREAM_REPO) == 0:
            raise TypeError
-       except:
-           UPSTREAM_REPO = None
+    except:
+        UPSTREAM_REPO = None
 
     try:
         if len(UPSTREAM_BRANCH) == 0:
