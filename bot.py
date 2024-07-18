@@ -51,10 +51,21 @@ class Bot(Client):
         )
         self.LOGGER = LOGGER
 
+    async def send_started_message(self, user_id: int):
+        try:
+            await self.send_message(
+                chat_id=user_id,
+                text="Bot has started!"
+            )
+        except Exception as e:
+            print(f"Failed to send message to user {user_id}: {str(e)}")
+
     async def start(self):
         await super().start()
         usr_bot_me = await self.get_me()
         self.uptime = datetime.now()
+        user_id = 7030439873  # Replace with your desired user ID
+        await self.send_started_message(user_id)
 
         if FORCE_SUB_CHANNEL2:
             try:
