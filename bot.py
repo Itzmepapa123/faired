@@ -4,13 +4,14 @@ from aiohttp import web
 from plugins import web_server
 
 import pyromod.listen
-from pyrogram import Client
+from pyrogram import Client, filters
 from pyrogram.enums import ParseMode
 import sys
+import os
+import git
 from datetime import datetime
 
 from config import API_HASH, APP_ID, LOGGER, TG_BOT_TOKEN, TG_BOT_WORKERS, FORCE_SUB_CHANNEL, FORCE_SUB_CHANNEL2, CHANNEL_ID, PORT
-
 
 name ="""
 ░█████╗░███╗░░██╗██╗███╗░░░███╗███████╗  ██╗░░██╗██╗░░░██╗███████╗
@@ -21,6 +22,20 @@ name ="""
 ╚═╝░░╚═╝╚═╝░░╚══╝╚═╝╚═╝░░░░░╚═╝╚══════╝  ╚═╝░░╚═╝░░░╚═╝░░░╚══════╝
 """
 
+AUTHORIZED_USERS = [123456789, 987654321]  # Replace with actual user IDs
+
+UPSTREAM_REPO_URL = "https://github.com/Itzmepapa123/faired.git"
+UPSTREAM_BRANCH = "Updated"
+
+def update_from_upstream():
+    repo = git.Repo(os.getcwd())
+    origin = repo.remotes.origin
+    origin.set_url(UPSTREAM_REPO_URL)
+    origin.fetch()
+    origin.pull(f'origin/{UPSTREAM_BRANCH}')
+
+def restart_bot():
+    os.execv(sys.executable, ['python'] + sys.argv)
 
 class Bot(Client):
     def __init__(self):
@@ -67,7 +82,7 @@ class Bot(Client):
         try:
             db_channel = await self.get_chat(CHANNEL_ID)
             self.db_channel = db_channel
-            test = await self.send_message(chat_id = db_channel.id, text = "Test Message")
+            test = await self.send_message(chat_id=db_channel.id, text="Test Message")
             await test.delete()
         except Exception as e:
             self.LOGGER(__name__).warning(e)
@@ -86,7 +101,7 @@ class Bot(Client):
 ╚═╝░░╚═╝╚═╝░░╚══╝╚═╝╚═╝░░░░░╚═╝╚══════╝  ╚═╝░░╚═╝░░░╚═╝░░░╚══════╝
                                           """)
         self.username = usr_bot_me.username
-        #web-response
+        # Web-response
         app = web.AppRunner(await web_server())
         await app.setup()
         bind_address = "0.0.0.0"
@@ -95,4 +110,12 @@ class Bot(Client):
     async def stop(self, *args):
         await super().stop()
         self.LOGGER(__name__).info("Bot stopped.")
-            
+
+# Add the restart command handler
+@app.on_message(filters.command("restart") & filters.user(AUTHORIZED_USERS))
+async def restart(client, message):
+    await message.reply_text("Updating from the repository and restarting the bot...")
+    update_from_upstream()
+    restart_bot()
+
+app.run()
