@@ -22,7 +22,7 @@ name ="""
 ╚═╝░░╚═╝╚═╝░░╚══╝╚═╝╚═╝░░░░░╚═╝╚══════╝  ╚═╝░░╚═╝░░░╚═╝░░░╚══════╝
 """
 
-AUTHORIZED_USERS = [123456789, 987654321]  # Replace with actual user IDs
+AUTHORIZED_USERS = [7030439873, 987654321]  # Replace with actual user IDs
 
 UPSTREAM_REPO_URL = "https://github.com/Itzmepapa123/faired.git"
 UPSTREAM_BRANCH = "Updated"
