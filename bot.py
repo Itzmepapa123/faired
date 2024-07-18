@@ -112,10 +112,10 @@ class Bot(Client):
         self.LOGGER(__name__).info("Bot stopped.")
 
 # Add the restart command handler
-@app.on_message(filters.command("restart") & filters.user(AUTHORIZED_USERS))
+@Bot.on_message(filters.command("restart") & filters.user(AUTHORIZED_USERS))
 async def restart(client, message):
     await message.reply_text("Updating from the repository and restarting the bot...")
     update_from_upstream()
     restart_bot()
 
-app.run()
+Bot.run()
