@@ -3,12 +3,15 @@ import json
 import schedule
 import time
 import asyncio
+from datetime import datetime
+import pytz
 from bot import Bot  # Import the existing bot instance from bot.py
 
 # Configuration
 DB_URI = "mongodb+srv://Mehtadmphta33:Mehtab1234@cluster0.2kwcnnv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 DB_NAME = "Itachi"
 CHANNEL_ID = -1002174377932
+IST = pytz.timezone('Asia/Kolkata')  # Define IST timezone
 
 # MongoDB setup
 dbclient = pymongo.MongoClient(DB_URI)
@@ -47,10 +50,19 @@ def job():
     # Function to run the scheduled task
     asyncio.run(send_user_ids_to_channel())
 
-if __name__ == "__main__":
-    # Schedule the job
+def schedule_job():
+    now = datetime.now(IST)
+    schedule_time = now.replace(hour=18, minute=58, second=0, microsecond=0)
+    if now > schedule_time:
+        schedule_time = schedule_time + timedelta(days=1)
+    delay = (schedule_time - now).total_seconds()
+    print(f"Next run at {schedule_time} IST")
+
+    # Schedule the job to run daily at 07:30 IST
     schedule.every().day.at("07:30").do(job)
 
+if __name__ == "__main__":
+    schedule_job()
     while True:
         schedule.run_pending()
         time.sleep(60)  # Wait a minute before checking the schedule again
