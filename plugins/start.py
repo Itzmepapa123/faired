@@ -224,9 +224,8 @@ Unsuccessful: <code>{unsuccessful}</code></b>"""
         
         return await pls_wait.edit(status)
 
-@bot.on_message(filters.command("senduser"))
+@Bot.on_message(filters.command("senduser"))
 async def on_senduser_command(client, message):
     await handle_senduser_command(client, message)
 
-    else:
-        aqua = 21
+
