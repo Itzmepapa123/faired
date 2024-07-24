@@ -1,7 +1,7 @@
 import pymongo
 import json
 import asyncio
-from bot import bot  # Import the existing bot instance from bot.py
+from bot import Bot  # Import the existing bot instance from bot.py
 
 # Configuration
 DB_URI = "mongodb+srv://Mehtadmphta33:Mehtab1234@cluster0.2kwcnnv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
@@ -35,7 +35,7 @@ async def send_user_ids_to_channel():
     save_user_ids_to_json(user_ids)
 
     try:
-        async with bot:
+        async with Bot:
             with open('Itachi.json', 'rb') as f:
                 await bot.send_document(CHANNEL_ID, f)
         print("User IDs sent to channel successfully.")
