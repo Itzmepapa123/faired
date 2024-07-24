@@ -1,8 +1,7 @@
 import pymongo
 import json
 import asyncio
-from pyrogram import filters
-from bot import Bot  # Import the existing bot instance from bot.py
+from bot import bot  # Import the existing bot instance from bot.py
 
 # Configuration
 DB_URI = "mongodb+srv://Mehtadmphta33:Mehtab1234@cluster0.2kwcnnv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
@@ -49,7 +48,3 @@ async def handle_senduser_command(client, message):
         await message.reply("User IDs have been successfully sent to the channel.")
     except Exception as e:
         await message.reply(f"Error: {e}")
-
-@Bot.on_message(filters.command("senduser"))
-async def on_senduser_command(client, message):
-    await handle_senduser_command(client, message)
