@@ -3,7 +3,7 @@ name: Deploy to VPS
 on:
   push:
     branches:
-      - Updated
+      - Updated 
 
 jobs:
   deploy:
@@ -22,18 +22,19 @@ jobs:
       env:
         VPS_IP: ${{ secrets.VPS_IP }}
         VPS_USER: ${{ secrets.VPS_USER }}
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
       run: |
         ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_IP << 'EOF'
         rm -rf faired
-        git config --global user.email yashoswal18@gmail.com 
+        git config --global user.email yashoswal18@gmail.com
         git config --global user.name mergebot
-        git clone https://github.com/Itzmepapa123/faired.git
+        git clone --branch main https://github.com/Itzmepapa123/faired.git
         cd faired
         git fetch origin
-        git checkout Updated
-        git pull origin Updated 
-        docker build -t faired .
+        git checkout main
+        git pull origin main
+        docker build -t fair:latest .
         docker stop fair || true
         docker rm fair || true
-        docker run -d --name fair -p 1281:1281 faired
+        docker run -d --name fair -p 2273:2273 faired:latest
         EOF
