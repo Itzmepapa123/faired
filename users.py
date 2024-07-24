@@ -33,17 +33,20 @@ def save_user_ids_to_json(user_ids):
 
 async def send_user_ids_to_channel():
     user_ids = fetch_user_ids()
-    save_user_ids_to_json(user_ids)
+    if user_ids:
+        save_user_ids_to_json(user_ids)
 
-    try:
-        async with Bot:
-            with open('Itachi.json', 'rb') as f:
-                print("Attempting to send document...")
-                response = await bot.send_document(CHANNEL_ID, f)
-                print(f"Document sent, response: {response}")  # Debugging line
-        print("User IDs sent to channel successfully.")
-    except Exception as e:
-        print(f"Error sending file to channel: {e}")
+        try:
+            async with Bot:
+                with open('Itachi.json', 'rb') as f:
+                    print("Attempting to send document...")
+                    response = await Bot.send_document(CHANNEL_ID, f)
+                    print(f"Document sent, response: {response}")  # Debugging line
+            print("User IDs sent to channel successfully.")
+        except Exception as e:
+            print(f"Error sending file to channel: {e}")
+    else:
+        print("No user IDs to send.")
 
 async def handle_senduser_command(client, message):
     try:
