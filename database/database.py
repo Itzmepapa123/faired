@@ -40,22 +40,3 @@ async def del_user(user_id: int):
     except Exception as e:
         print(f"Error deleting user {user_id}: {e}")
 
-async def main():
-    # Test adding users
-    await add_user(1)
-    await add_user(2)
-    await add_user(3)
-
-    # Check if users are present
-    print(await present_user(1))  # Should print: True
-    print(await present_user(4))  # Should print: False
-
-    # Get all user IDs
-    print(await full_userbase())  # Should print: [1, 2, 3]
-
-    # Delete a user
-    await del_user(2)
-    print(await full_userbase())  # Should print: [1, 3]
-
-# Run the main function
-asyncio.run(main())
