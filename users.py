@@ -17,6 +17,7 @@ def fetch_user_ids():
     try:
         user_docs = user_data.find()
         user_ids = [doc['_id'] for doc in user_docs]
+        print(f"Fetched user IDs: {user_ids}")  # Debugging line
         return user_ids
     except Exception as e:
         print(f"Error fetching user IDs: {e}")
@@ -37,7 +38,9 @@ async def send_user_ids_to_channel():
     try:
         async with Bot:
             with open('Itachi.json', 'rb') as f:
-                await bot.send_document(CHANNEL_ID, f)
+                print("Attempting to send document...")
+                response = await bot.send_document(CHANNEL_ID, f)
+                print(f"Document sent, response: {response}")  # Debugging line
         print("User IDs sent to channel successfully.")
     except Exception as e:
         print(f"Error sending file to channel: {e}")
@@ -48,3 +51,5 @@ async def handle_senduser_command(client, message):
         await message.reply("User IDs have been successfully sent to the channel.")
     except Exception as e:
         await message.reply(f"Error: {e}")
+
+# Ensure to import this file in your main bot script (bot.py) to register the commands.
