@@ -5,7 +5,7 @@ from bot import Bot  # Import the existing bot instance from bot.py
 
 # Configuration
 DB_URI = "mongodb+srv://Mehtadmphta33:Mehtab1234@cluster0.2kwcnnv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-DB_NAME = "Itachi"
+DB_NAME = "itachi"
 CHANNEL_ID = -1002174377932
 
 # MongoDB setup
