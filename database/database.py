@@ -33,10 +33,7 @@ async def full_userbase():
 async def del_user(user_id: int):
     try:
         result = user_data.delete_one({'_id': user_id})
-        if result.deleted_count:
-            print(f"User {user_id} deleted.")
-        else:
-            print(f"User {user_id} not found.")
+        
     except Exception as e:
         print(f"Error deleting user {user_id}: {e}")
 
